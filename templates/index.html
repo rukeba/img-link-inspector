@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Img Link Inspector{% if url %} - {{url}}{% endif %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css-1.5.1.min.css"/>
+    <style>pre {border-left-color: red}</style>
+</head>
+<body>
+{% if url %}
+    <h3>{{url}}</h3>
+    <pre>HTTP Status, URL
+{% for status in img_statuses %}{{ status[0] }}, {{ status[1] }}
+{% endfor %}</pre>
+{% endif %}
+
+{% if not img_statuses and url %}
+<p><code>✔</code> No broken image links found.</p>
+{% endif %}
+
+{% if url %}
+<hr/>
+{% endif %}
+
+<form action="." method="get">
+    <input type="url" style="width: 100%"
+           name="url" value="{% if url %}{{url}}{% else %}https://test-site-with-images.blogspot.com/{% endif %}">
+    <br/>
+    <button type="submit">Inspect URL for broken images</button>
+</form>
+</body>
+</html>
